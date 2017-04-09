@@ -1,0 +1,7 @@
+ Private Function ColorInBitmap(image As Bitmap, Target As Color) As Boolean
+        For x As Integer = 1 To image.Width
+            Dim tmpC As Color = image.GetPixel(x - 1, 0)
+            If tmpC.Equals(Target) Then Return True
+        Next
+        Return False
+    End Function
