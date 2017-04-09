@@ -1,0 +1,33 @@
+  Using screenGrab As New Bitmap(300, 1)
+
+            Using g2 As Graphics = Graphics.FromImage(screenGrab)
+                g2.CopyFromScreen(New Point(811, 478), New Point(1111, 479), screenSize)
+                Dim img2 As New Bitmap(1111 - 811, 479 - 478)
+                Dim gr As Graphics = Graphics.FromImage(img2)
+                gr.CopyFromScreen(New Point(811, 478), Point.Empty, img2.Size)
+                '   gr.CopyFromScreen(New Point(811, 478), Point.Empty, img2.Size)
+                '  img2.Save("test2.png", Drawing.Imaging.ImageFormat.Png)
+
+                If ColorInBitmap2(img2, Color.FromArgb(232, 111, 44)) = True Then 'corn
+                    If CurrentLine = 0 Then
+                        SendKeys.Send(" ")
+                        ChangeCurrentLine()
+                        Threading.Thread.Sleep(500)
+                    End If
+                    'ElseIf ColorInBitmap(img, Color.FromArgb(68, 53, 18)) = True Then 'mud
+                    '    If CurrentLine = 0 Then
+                    '        SendKeys.Send(" ")
+                    '        ChangeCurrentLine()
+                    '    End If
+                    'ElseIf ColorInBitmap(img, Color.FromArgb(109, 204, 228)) = True Then 'water
+                    '    If CurrentLine = 0 Then
+                    '        SendKeys.Send(" ")
+                    '        ChangeCurrentLine()
+                    '    End If
+                    'ElseIf ColorInBitmap(img, Color.FromArgb(126, 109, 66)) = True Or ColorInBitmap(img, Color.FromArgb(146, 130, 87)) = True Then 'rocks
+                    '    If CurrentLine = 0 Then
+                    '        SendKeys.Send(" ")
+                    '        ChangeCurrentLine()
+                    '    End If
+                End If
+            End Using
