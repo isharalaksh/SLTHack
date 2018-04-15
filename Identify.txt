@@ -1,4 +1,3 @@
-  Using screenGrab As New Bitmap(300, 1)
 
             Using g2 As Graphics = Graphics.FromImage(screenGrab)
                 g2.CopyFromScreen(New Point(811, 478), New Point(1111, 479), screenSize)
