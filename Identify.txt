@@ -1,32 +1,42 @@
 
-            Using g2 As Graphics = Graphics.FromImage(screenGrab)
-                g2.CopyFromScreen(New Point(811, 478), New Point(1111, 479), screenSize)
-                Dim img2 As New Bitmap(1111 - 811, 479 - 478)
-                Dim gr As Graphics = Graphics.FromImage(img2)
-                gr.CopyFromScreen(New Point(811, 478), Point.Empty, img2.Size)
-                '   gr.CopyFromScreen(New Point(811, 478), Point.Empty, img2.Size)
-                '  img2.Save("test2.png", Drawing.Imaging.ImageFormat.Png)
+    Public screenSize As System.Drawing.Size
 
-                If ColorInBitmap2(img2, Color.FromArgb(232, 111, 44)) = True Then 'corn
-                    If CurrentLine = 0 Then
-                        SendKeys.Send(" ")
-                        ChangeCurrentLine()
-                        Threading.Thread.Sleep(500)
-                    End If
-                    'ElseIf ColorInBitmap(img, Color.FromArgb(68, 53, 18)) = True Then 'mud
-                    '    If CurrentLine = 0 Then
-                    '        SendKeys.Send(" ")
-                    '        ChangeCurrentLine()
-                    '    End If
-                    'ElseIf ColorInBitmap(img, Color.FromArgb(109, 204, 228)) = True Then 'water
-                    '    If CurrentLine = 0 Then
-                    '        SendKeys.Send(" ")
-                    '        ChangeCurrentLine()
-                    '    End If
-                    'ElseIf ColorInBitmap(img, Color.FromArgb(126, 109, 66)) = True Or ColorInBitmap(img, Color.FromArgb(146, 130, 87)) = True Then 'rocks
-                    '    If CurrentLine = 0 Then
-                    '        SendKeys.Send(" ")
-                    '        ChangeCurrentLine()
-                    '    End If
+    Friend Function ColorInBitmap(ByVal image As Bitmap, ByVal Target As Color) As Boolean
+        Dim flag As Boolean
+        Dim width As Integer = image.Width
+        Dim num As Integer = 1
+        While True
+            If (num > width) Then
+                flag = False
+                Exit While
+            ElseIf (Not image.GetPixel(num - 1, 0).Equals(Target)) Then
+                num = num + 1
+            Else
+                flag = True
+                Exit While
+            End If
+        End While
+        Return flag
+    End Function
+
+
+    Friend Function CheckColor(ByVal color As Color)
+        Using screenGrab As New Bitmap(59, 533)
+
+            Using g As Graphics = Graphics.FromImage(screenGrab)
+                g.CopyFromScreen(New Point(334, 114), New Point(393, 647), screenSize)
+                Dim img As New Bitmap(393 - 334, 647 - 114)
+                Dim gr As Graphics = Graphics.FromImage(img)
+                gr.CopyFromScreen(New Point(334, 114), Point.Empty, img.Size)
+                '   gr.CopyFromScreen(New Point(811, 478), Point.Empty, img2.Size)
+                img.Save("test.png", Drawing.Imaging.ImageFormat.Png)
+
+                If ColorInBitmap(img, color) = True Then
+                    Return True
+                Else
+                    Return False
+
                 End If
             End Using
+        End Using
+    End Function
